@@ -1,0 +1,133 @@
+{% load creativecommons %}
+<style>
+.note {
+    font-style: italic;
+}
+#id_custom_authors {
+    width: 504px;
+}
+#id_custom_description {
+    width: 504px;
+}
+</style>
+<div id="content">
+    <h2>
+        Register your experiment with ANDS
+    </h2>
+    <div>
+        <p class="note">
+            Your entry will include the following information...
+        </p>
+    </div>
+    <div>
+        <div>
+            <h3>Authors</h3>
+        </div>
+        {% if custom_authors_csv %}
+            <p>
+                {{ custom_authors_csv }}
+            </p>
+        {% else %}
+            <p class="note">no custom authors defined, using default:</p>
+            <p>
+                {{ authors_csv }}
+            </p>
+        {% endif %}
+    </div>
+    <div>
+        <div>
+            <h3>Description</h3>
+        </div>
+        {% if custom_description%}
+            <p>
+                {{ custom_description}}
+            </p>
+        {% else %}
+            <p class="note">no custom description defined, using abstract by default:</p>
+            <p>
+                {{ experiment.description }}
+            </p>
+        {% endif %}
+    </div>
+    <div>
+        <div>
+            <h3>Licence</h3>
+        </div>
+        <div class="license_box" style="border: 1px solid">
+            {{experiment.id|show_cc_license|safe}}
+        </div>
+    </div>
+    <div>
+        <div>
+            <h3>Access Type</h3>
+        </div>
+        {{ access_type }}
+    </div>
+
+    <div>
+        <hr />
+        {% if is_owner %}
+            <h3>
+                Update details
+            </h3>
+            <form action="{% url tardis.apps.as_ands.views.index experiment.id %}" method="POST" id="publish_form">
+                <div>
+                    {{ form.non_field_errors }}
+                </div>
+                <div>
+                    {{ form.custom_authors.label_tag }} (comma-separated) <br />
+                    {{ form.custom_authors.errors }} 
+                    {{ form.custom_authors }}
+                </div>
+                <div>
+                    {{ form.custom_description.label_tag }} <br />
+                    {{ form.custom_description.errors }}
+                    {{ form.custom_description }}
+                </div>
+                <div>
+                    {{ form.access_type.label_tag }} <br />
+                    {{ form.access_type.errors }} 
+                    {{ form.access_type }}
+                    {% if not has_licence %}
+                        <span class="note">
+                            <a href="{% url tardis.tardis_portal.views.choose_license experiment.id %}">Select a licence</a>
+                                if you wish to make your experiment public.
+                        </span>
+                    {% endif %}
+                </div>
+                <div>
+                    <div class="license_box" style="border: 1px solid">
+                        {{experiment.id|show_cc_license|safe}}
+                        <a href="{% url tardis.tardis_portal.views.choose_license experiment.id %}">Change licence</a>
+                    </div>
+                </div>
+                <input type="submit" value="Save publication details"/>
+            </form>
+        {% else %}
+            <div>
+                Contact an experiment owner to modify these details.
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+    $('#publish_form').submit(function(evt){
+        evt.preventDefault();
+        var $form = $(this);
+        var href = $form.attr('action');
+
+        // TODO error handling
+        var $content = $('#content');
+        $content.text('now loading...');
+        $.post(href, $form.serialize(), function(data, textStatus, jqXHR){
+            if (data.success) {
+                $content.load(href);
+            } else {
+                // form should always be valid.
+                // This will occur only if a bug is present
+                alert(data);
+            }
+        });
+    });
+    </script>
+</div>
