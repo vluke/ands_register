@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns(
-    'tardis.apps.as_ands.views',
+    'tardis.apps.ands_register.views',
     (r'^(?P<experiment_id>\d+)/$', 'index'),
     )
 

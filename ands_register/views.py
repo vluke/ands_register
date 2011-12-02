@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 @never_cache
 @authz.experiment_access_required
 def index(request, experiment_id):
-    url = 'as_ands/index.html'
+    url = 'ands_register/index.html'
 
     e = Experiment.objects.get(pk=experiment_id)
     cch = CreativeCommonsHandler(experiment_id=experiment_id, create=False)
