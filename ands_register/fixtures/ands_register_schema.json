@@ -1,0 +1,67 @@
+[
+    {
+        "pk": 30, 
+        "model": "tardis_portal.schema", 
+        "fields": {
+            "type": 1, 
+            "namespace": "http://www.tardis.edu.au/schemas/sync_publish/2011/09/19", 
+            "name": "ANDS Register", 
+            "immutable": true, 
+            "subtype": ""
+        }
+    }, 
+    {
+        "pk": 263, 
+        "model": "tardis_portal.parametername", 
+        "fields": {
+            "name": "access_type", 
+            "data_type": 2, 
+            "is_searchable": false, 
+            "choices": "", 
+            "comparison_type": 1, 
+            "full_name": "access_type", 
+            "units": "", 
+            "order": 9999, 
+            "immutable": true, 
+            "schema": [
+                "http://www.tardis.edu.au/schemas/sync_publish/2011/09/19"
+            ]
+        }
+    }, 
+    {
+        "pk": 265, 
+        "model": "tardis_portal.parametername", 
+        "fields": {
+            "name": "custom_authors", 
+            "data_type": 2, 
+            "is_searchable": false, 
+            "choices": "", 
+            "comparison_type": 1, 
+            "full_name": "custom_authors", 
+            "units": "", 
+            "order": 9999, 
+            "immutable": true, 
+            "schema": [
+                "http://www.tardis.edu.au/schemas/sync_publish/2011/09/19"
+            ]
+        }
+    }, 
+    {
+        "pk": 264, 
+        "model": "tardis_portal.parametername", 
+        "fields": {
+            "name": "custom_description", 
+            "data_type": 2, 
+            "is_searchable": false, 
+            "choices": "", 
+            "comparison_type": 1, 
+            "full_name": "custom_description", 
+            "units": "", 
+            "order": 9999, 
+            "immutable": true, 
+            "schema": [
+                "http://www.tardis.edu.au/schemas/sync_publish/2011/09/19"
+            ]
+        }
+    }
+]
