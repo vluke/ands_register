@@ -1,4 +1,5 @@
 {% load creativecommons %}
+{% load formfieldfilters %}
 <style>
 .note {
     font-style: italic;
@@ -40,12 +41,12 @@
         </div>
         {% if custom_description%}
             <p>
-                {{ custom_description}}
+                {{ custom_description|sanitize_html|safe }}
             </p>
         {% else %}
             <p class="note">no custom description defined, using abstract by default:</p>
             <p>
-                {{ experiment.description }}
+                {{ experiment.description|sanitize_html|safe }}
             </p>
         {% endif %}
     </div>
