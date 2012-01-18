@@ -44,10 +44,7 @@
                 {{ custom_description|sanitize_html|safe }}
             </p>
         {% else %}
-            <p class="note">no custom description defined, using abstract by default:</p>
-            <p>
-                {{ experiment.description|sanitize_html|safe }}
-            </p>
+            <p class="note">no custom description defined</p>
         {% endif %}
     </div>
     <div>
