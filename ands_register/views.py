@@ -40,7 +40,7 @@ def index(request, experiment_id):
             return HttpResponse('{"success": true}', mimetype='application/json')
     else:
         publish_handler = publishing.PublishHandler(experiment_id)
-        form = forms.PublishingForm(has_licence, initial=publish_handler.form_data())
+        form = forms.PublishingForm(has_licence, initial=publish_handler.form_data_with_abstract())
 
     c = Context()
     c['is_owner'] = is_owner

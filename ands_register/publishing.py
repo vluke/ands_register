@@ -76,6 +76,24 @@ class PublishHandler(object):
         data[self.access_type_key] = self.access_type()
 
         return data
+    
+    def form_data_with_abstract(self):
+        if not self.psm:
+            return {}
+
+        data = {}
+        description = self.custom_description()
+        if description and description != "":
+            data[self.custom_description_key] = description
+        else:
+            experiment = Experiment.objects.get(id=self.experiment_id)
+            data[self.custom_description_key] = experiment.description
+        authors = self.custom_authors()
+        if authors:
+            data[self.custom_authors_key] = ', '.join(authors)
+        data[self.access_type_key] = self.access_type()
+
+        return data
 
     def update(self, cleaned_data):
         ''' updates the publishing parameterset with the given form data'''
