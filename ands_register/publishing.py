@@ -63,6 +63,11 @@ class PublishHandler(object):
         return [a.string_value for a in author_params]
 
     def form_data(self):
+        ''' 
+        Use this method if you DO NOT want the custom description text area
+        to be populated with the experiment description when no custom
+        description is available.
+        '''
         if not self.psm:
             return {}
 
@@ -78,15 +83,20 @@ class PublishHandler(object):
         return data
     
     def form_data_with_abstract(self):
+        '''
+        Use this method if you DO want the custom description text area
+        to be populated with the experiment description when no custom
+        description is available.
+        '''
+        experiment = Experiment.objects.get(id=self.experiment_id)
         if not self.psm:
-            return {}
+            return {self.custom_description_key: experiment.description}
 
         data = {}
         description = self.custom_description()
         if description and description != "":
             data[self.custom_description_key] = description
         else:
-            experiment = Experiment.objects.get(id=self.experiment_id)
             data[self.custom_description_key] = experiment.description
         authors = self.custom_authors()
         if authors:
