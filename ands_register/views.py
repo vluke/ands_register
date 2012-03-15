@@ -48,7 +48,16 @@ def index(request, experiment_id):
     c['experiment'] = e
     c['form'] = form
 
-    c['custom_description'] = publish_handler.custom_description()
+    custom_desc = publish_handler.custom_description()
+    
+    # The following few lines handle the special case of only "<" and ">"
+    # are in the custom description field 
+    if custom_desc == ">":
+        c['custom_description'] = "&gt;"
+    elif custom_desc == "<":
+        c['custom_description'] = "&lt;"
+    else:
+        c['custom_description'] = custom_desc
 
     authors = [a.author for a in e.author_experiment_set.all()]
     c['authors_csv'] = ', '.join(authors)
