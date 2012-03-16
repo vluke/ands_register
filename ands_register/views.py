@@ -48,7 +48,7 @@ def index(request, experiment_id):
     c['experiment'] = e
     c['form'] = form
 
-    custom_desc = publish_handler.custom_description()
+    c['custom_description'] = publish_handler.custom_description()
 
     authors = [a.author for a in e.author_experiment_set.all()]
     c['authors_csv'] = ', '.join(authors)
