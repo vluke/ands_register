@@ -49,16 +49,6 @@ def index(request, experiment_id):
     c['form'] = form
 
     custom_desc = publish_handler.custom_description()
-    
-    # The following few lines handle the special case of only "<" and ">"
-    # are in the custom description field, which is not handled by the 
-    # "sanitize_html" method in the template 
-    if custom_desc == ">":
-        c['custom_description'] = "&gt;"
-    elif custom_desc == "<":
-        c['custom_description'] = "&lt;"
-    else:
-        c['custom_description'] = custom_desc
 
     authors = [a.author for a in e.author_experiment_set.all()]
     c['authors_csv'] = ', '.join(authors)
